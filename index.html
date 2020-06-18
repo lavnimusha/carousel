@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Click and drag to scroll</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        body{
+            background-image: url("https://image.freepik.com/free-vector/fashion-sunglasses-pattern-background_18591-51307.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            height: 100%;
+        }
+        .items{
+            width: 80vw;
+            height: 60vh;
+            border: 1px solid lightpink;
+            /*display: flex;
+            flex-direction: row;*/
+            margin: 10% auto;
+           overflow: auto;
+            white-space: nowrap;
+            
+        }
+        .item{
+            opacity : 0.5;
+            width: 70%;
+            height: 60%;
+            display: inline-block;
+            overflow-x: scroll;
+            margin: 10% auto;
+            text-align: center;
+            z-index: -6;
+        }
+        .item:nth-child(odd){
+            background-color: lightblue;
+            border: 1px solid blue;
+        }
+        .item:nth-child(even){
+            background-color: lightpink;
+            border: 1px solid red;
+        }
+        .elescale{
+            transform: scaleY(1.5);
+            transition: 0.5s linear;
+            z-index: 5; 
+            opacity:1;
+        }
+        </style>
+    </head>
+    <body>
+            <div class = "items">
+            <div class = "item item1">1</div>
+            <div class = "item item2">2</div>
+            <div class = "item item3">3</div>
+            <div class = "item item4">4</div>
+            <div class = "item item5">5</div>
+            <div class = "item item6">6</div>
+            <div class = "item item7">7</div>
+            <div class = "item item8">8</div>
+            <div class = "item item9">9</div>
+            <div class = "item item10">10</div>
+            <div class = "item item11">11</div>
+            <div class = "item item12">12</div>
+            <div class = "item item13">13</div>
+            <div class = "item item14">14</div>
+            <div class = "item item15">15</div>
+            <div class = "item item16">16</div>
+            <div class = "item item17">17</div>
+        
+        
+        </div>
+        
+        <script>
+        let boxes = document.querySelectorAll('.item');
+        function callback (entries, observer) {
+               
+                entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            let cls = (entry.target.className).split(' ');
+                            let box = document.querySelector('.'+cls[1]);
+                                box.classList.add('elescale');
+                            console.log("scaled");
+                        } 
+                });
+        }        
+        function rollback (entries, observer) {
+               
+                entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            let cls = (entry.target.className).split(' ');
+                            let box = document.querySelector('.'+cls[1]);
+                                box.classList.remove('elescale');
+                            console.log("removed scaled");
+                        } 
+                });
+        }
+        let observer = new IntersectionObserver(callback,{root:document.querySelector('.items'),threshold: [1]});
+        let obs = new IntersectionObserver(rollback,{root:document.querySelector('.items'),threshold: [0.4,0.6]});
+        boxes.forEach(box => {observer.observe(box);})
+        boxes.forEach(box => {obs.observe(box);})
+        </script>
+    </body>
+</html>
