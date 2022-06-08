@@ -1,4 +1,6 @@
 # Carousel
+## Live
+https://lavnimusha.github.io/carousel/
 
 ## Skills
 HTML, CSS, JS
